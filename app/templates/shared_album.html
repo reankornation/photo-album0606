@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Загальний альбом{% endblock %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 20px auto;">
+  <h2 style="text-align: center;">{{ current_folder.name if current_folder else "Загальний альбом" }}</h2>
+
+  {% if current_folder and current_folder.parent %}
+    <a href="{{ url_for('app.shared_album', parent_id=current_folder.parent.id) }}">&larr; Назад до {{ current_folder.parent.name }}</a>
+  {% elif current_folder %}
+    <a href="{{ url_for('app.shared_album') }}">&larr; Назад до загального альбому</a>
+  {% endif %}
+
+  <div style="margin-top: 20px; margin-bottom: 20px;">
+    <form action="{{ url_for('app.shared_album', parent_id=current_folder.id if current_folder else None) }}" method="POST">
+      <label for="folder_name">Нова папка:</label>
+      <input type="text" name="folder_name" id="folder_name" placeholder="Назва папки" required style="width: 100%;">
+      <button type="submit">Створити</button>
+    </form>
+  </div>
+
+  <div style="margin-bottom: 20px;">
+    <form action="{{ url_for('app.shared_album', parent_id=current_folder.id if current_folder else None) }}" method="POST" enctype="multipart/form-data">
+      <label for="photo">Завантажити фото:</label>
+      <input type="file" name="photo" id="photo" required style="width: 100%;">
+      <button type="submit">Завантажити</button>
+    </form>
+  </div>
+
+  <div>
+    <h3>Папки</h3>
+    {% if subalbums %}
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        {% for subalbum in subalbums %}
+          <div style="border: 1px solid #ccc; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
+            <a href="{{ url_for('app.shared_album', parent_id=subalbum.id) }}" style="text-decoration: none; color: #000; font-size: 1.1em;">
+              {{ subalbum.name }}
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>Немає папок.</p>
+    {% endif %}
+  </div>
+
+  <div style="margin-top: 20px;">
+    <h3>Фото</h3>
+    {% if photos %}
+      <ul style="display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0;">
+        {% for photo in photos %}
+          <li style="position: relative;">
+            <a href="{{ photo.file_path }}" target="_blank">
+              <img src="{{ photo.file_path }}" alt="Фото" style="max-width: 150px; border-radius: 5px;">
+            </a>            
+            {% if photo.owner_id == current_user.id %}
+              <form action="{{ url_for('app.delete_photo', photo_id=photo.id) }}" method="POST" 
+                    style="position: absolute; top: 5px; right: 5px;">
+                <button type="submit" style="background-color: red; color: white; border: none; padding: 5px 10px; cursor: pointer;" 
+                        onclick="return confirm('Ви впевнені, що хочете видалити це фото?');">
+                  Видалити
+                </button>
+              </form>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Немає фото у цьому альбомі.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

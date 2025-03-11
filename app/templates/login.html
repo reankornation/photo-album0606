@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Вхід{% endblock %}
+
+{% block content %}
+    <h2>Вхід</h2>
+    <form action="{{ url_for('app.login') }}" method="POST">
+        {{ form.hidden_tag() }}
+        <label for="email">Email:</label>
+        {{ form.email(class="form-input") }}
+        <label for="password">Пароль:</label>
+        {{ form.password(class="form-input") }}
+        <button type="submit">Увійти</button>
+    </form>
+    <p>Немає облікового запису? <a href="{{ url_for('app.register') }}">Зареєструйтесь тут</a>.</p>
+{% endblock %}

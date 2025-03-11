@@ -1,0 +1,142 @@
+/* Загальні стилі */
+body {
+    font-family: 'Georgia', serif; /* Зробимо текст стильнішим */
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5dc; /* Відтінок слонової кістки */
+    color: #2f4f4f; /* Темно-сірий з зеленуватим відтінком */
+}
+
+/* Шапка */
+header {
+    background-color: #013220; /* Глибокий смарагдовий */
+    color: #f0e68c; /* Золотистий */
+    padding: 20px;
+    text-align: center;
+    border-bottom: 5px solid #daa520; /* Тонка золотиста лінія */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    letter-spacing: 2px;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+nav a {
+    color: #f0e68c; /* Золотистий текст */
+    text-decoration: none;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+    color: #fff; /* Білий при наведені */
+}
+
+/* Головний вміст */
+main {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 900px;
+    background-color: #ffffff; /* Білий фон для блоків */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* М'яка тінь */
+    border-left: 5px solid #013220; /* Декоративний зелений акцент */
+    border-right: 5px solid #daa520; /* Декоративний золотистий акцент */
+}
+
+h2 {
+    color: #013220; /* Смарагдовий заголовок */
+    border-bottom: 2px solid #daa520; /* Лінія під заголовком */
+    padding-bottom: 5px;
+}
+
+/* Форми */
+form {
+    margin-bottom: 25px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #2f4f4f; /* Темно-сірий */
+}
+
+form input[type="text"],
+form input[type="file"],
+form input[type="password"],
+form input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #daa520; /* Золотистий контур */
+    border-radius: 8px;
+    background-color: #f0f8ff; /* Дуже світлий блакитний фон */
+    color: #013220; /* Смарагдовий текст */
+}
+
+form button {
+    background-color: #013220; /* Смарагдова кнопка */
+    color: #f0e68c; /* Золотистий текст */
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em;
+    transition: all 0.3s ease;
+}
+
+form button:hover {
+    background-color: #daa520; /* Золотиста кнопка при наведенні */
+    color: #013220; /* Смарагдовий текст */
+}
+
+/* Список фотографій */
+img {
+    max-width: 150px;
+    border-radius: 10px;
+    margin: 10px;
+    display: block;
+    border: 3px solid #daa520; /* Золотиста рамка */
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+ul li {
+    display: inline-block;
+    text-align: center;
+}
+
+/* Додаткові стилі */
+a {
+    color: #013220;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #daa520;
+}
+
+footer {
+    background-color: #013220; /* Смарагдовий */
+    color: #f0e68c; /* Золотистий */
+    text-align: center;
+    padding: 15px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ album.name }}{% endblock %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 20px auto;">
+    <h2>{{ album.name }}</h2>
+    {% if album.parent %}
+        <a href="{{ url_for('app.view_album', album_id=album.parent.id) }}">&larr; Назад до {{ album.parent.name }}</a>
+    {% else %}
+        <a href="{{ url_for('app.album') }}">&larr; Назад до альбомів</a>
+    {% endif %}
+
+    <div style="margin: 20px 0;">
+        <form action="{{ url_for('app.view_album', album_id=album.id) }}" method="POST" enctype="multipart/form-data">
+            <label for="photo">Завантажити фото:</label>
+            <input type="file" name="photo" id="photo" required>
+            <button type="submit">Завантажити</button>
+        </form>
+    </div>
+
+    <div style="margin: 20px 0;">
+        <form action="{{ url_for('app.view_album', album_id=album.id) }}" method="POST">
+            <label for="folder_name">Нова підпапка:</label>
+            <input type="text" name="folder_name" id="folder_name" placeholder="Назва підпапки" required>
+            <button type="submit">Створити</button>
+        </form>
+    </div>
+
+    <div>
+        <h3>Підпапки</h3>
+        {% if subalbums %}
+            <ul style="list-style: none; padding: 0;">
+                {% for subalbum in subalbums %}
+                    <li>
+                        <a href="{{ url_for('app.view_album', album_id=subalbum.id) }}">{{ subalbum.name }}</a>
+                        <form action="{{ url_for('app.delete_album', album_id=subalbum.id) }}" method="POST" style="display: inline;">
+                            <button type="submit" onclick="return confirm('Ви впевнені, що хочете видалити цю підпапку?');">Видалити</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Немає підпапок.</p>
+        {% endif %}
+    </div>
+
+    <div style="margin-top: 20px;">
+        <h3>Фото</h3>
+        {% if photos %}
+        <ul style="display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0;">
+            {% for photo in photos %}
+                <li>
+                    <a href="{{ photo.file_path }}" target="_blank">
+                        <img src="{{ photo.file_path }}" alt="Фото" style="max-width: 150px; border-radius: 5px;">
+                    </a>
+                    <form action="{{ url_for('app.delete_photo', photo_id=photo.id) }}" method="POST">
+                        <button type="submit" onclick="return confirm('Ви впевнені, що хочете видалити це фото?');">Видалити</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        
+        {% else %}
+            <p>Немає фото у цьому альбомі.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

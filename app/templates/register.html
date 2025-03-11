@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Реєстрація{% endblock %}
+
+{% block content %}
+    <h2>Реєстрація</h2>
+    <form action="{{ url_for('app.register') }}" method="POST">
+        {{ form.hidden_tag() }}
+        <label for="username">Ім'я користувача:</label>
+        {{ form.username(class="form-input") }}
+        <label for="email">Email:</label>
+        {{ form.email(class="form-input") }}
+        <label for="password">Пароль:</label>
+        {{ form.password(class="form-input") }}
+        <label for="confirm_password">Підтвердження пароля:</label>
+        {{ form.confirm_password(class="form-input") }}
+        <button type="submit">Зареєструватися</button>
+    </form>
+    <p>Вже маєте обліковий запис? <a href="{{ url_for('app.login') }}">Увійдіть тут</a>.</p>
+{% endblock %}

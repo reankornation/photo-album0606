@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Мій альбом{% endblock %}
+
+{% block content %}
+<div style="margin: 20px auto; max-width: 600px;">
+  <h2 style="text-align: center;">Ваш фотоальбом</h2>
+  
+  <div style="margin-bottom: 20px;">
+    <form action="{{ url_for('app.album') }}" method="POST">
+      <label for="folder_name">Нова папка:</label>
+      <input type="text" name="folder_name" id="folder_name" placeholder="Назва папки" required style="width: 100%;">
+      <button type="submit">Створити</button>
+    </form>
+  </div>
+  
+  <div>
+    {% for album in albums %}
+      <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <a href="{{ url_for('app.view_album', album_id=album.id) }}" style="text-decoration: none; color: #000; font-size: 1.2em;">
+            {{ album.name }}
+          </a>
+        </div>
+        <div>
+          <form action="{{ url_for('app.delete_album', album_id=album.id) }}" method="POST" style="margin: 0;" 
+                onsubmit="return confirm('Ви впевнені, що хочете видалити цю папку?');">
+            <button type="submit">Видалити</button>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+<div style="margin-top: 20px;">
+    <form action="{{ url_for('app.album') }}" method="POST" enctype="multipart/form-data">
+      <label for="photo">Завантажити фото:</label>
+      <input type="file" name="photo" id="photo" required>
+      <button type="submit">Завантажити</button>
+    </form>
+  </div>
+  
